@@ -3515,7 +3515,11 @@ sub find_associated_clauses
 			push(@$output, $final_outer_clauses->{$f}{join}[$j]);
 		}
 		delete $final_outer_clauses->{$f};
-		find_associated_clauses($f, $output, $associated_clause, $final_outer_clauses);
+		#table itself checks for outer join--start
+		if($final_outer_clauses->{$f}{join}){
+			find_associated_clauses($f, $output, $associated_clause, $final_outer_clauses);
+		}
+		#table itself checks for outer join--end
 	}
 	delete $associated_clause->{$c};
 }
